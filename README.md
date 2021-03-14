@@ -10,17 +10,16 @@
 
 > NOTE: The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
 
-
 ## Architecture
 ![](./architecture.png  "Architecture Diagram")
-
-
-
 
 ## Docker deployments
 
 ### .env file
 Change the Parameters in the env file with your own docker account username and build tags
+```DOCKER_REPO=<your-docker-username>
+BUILD_TAG=1.0.0
+```
 ### Building the images
 ```
 $ docker-compose -f docker-compose-build.yml build --no-cache
@@ -33,7 +32,6 @@ $ docker-compose up -d
 ```
 $ docker stack deploy -c docker-stack.yml vote
 ```
-
 
 ## Kubernetes deployment
 
