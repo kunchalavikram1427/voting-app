@@ -12,7 +12,8 @@
 
 ## Architecture
 ![](./architecture.png  "Architecture Diagram")
-
+![](./vote.jpg  "Vote UI")
+![](./result.jpg  "Result UI")
 ## Docker deployments
 
 ### .env file

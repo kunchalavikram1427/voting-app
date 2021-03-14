@@ -37,7 +37,7 @@ spec:
         app: redis
     spec:
       containers:
-      - image: redis:alpine
+      - image: redis:5.0-alpine3.10
         name: redis
         ports:
         - containerPort: 6379
@@ -140,7 +140,7 @@ spec:
     spec:
       containers:
       - name: result
-        image: dockersamples/examplevotingapp_result:before
+        image: kunchalavikram/result-app:1.0.0
         ports:
         - containerPort: 80
           name: result
@@ -182,7 +182,7 @@ spec:
         app: vote
     spec:
       containers:
-      - image: dockersamples/examplevotingapp_vote:before
+      - image: kunchalavikram/vote-app:1.0.0
         name: vote
         ports:
         - containerPort: 80
@@ -207,5 +207,5 @@ spec:
         app: worker
     spec:
       containers:
-      - image: dockersamples/examplevotingapp_worker
+      - image: kunchalavikram/worker-app:1.0.0
         name: worker
