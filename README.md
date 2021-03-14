@@ -18,6 +18,9 @@
 
 
 ## Docker deployments
+
+### .env file
+Change the Parameters in the env file with your own docker account username and build tags
 ### Building the images
 ```
 $ docker-compose -f docker-compose-build.yml build --no-cache
