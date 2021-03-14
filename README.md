@@ -25,7 +25,7 @@ BUILD_TAG=1.0.0
 ```
 $ docker-compose -f docker-compose-build.yml build --no-cache
 ```
-### Deploying the app to docker
+### Deploying the app
 ```
 $ docker-compose up -d
 ```
