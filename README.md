@@ -17,7 +17,8 @@
 
 ### .env file
 Change the Parameters in the env file with your own docker account username and build tags
-```DOCKER_REPO=<your-docker-username>
+```
+DOCKER_REPO=<your-docker-username>
 BUILD_TAG=1.0.0
 ```
 ### Building the images
