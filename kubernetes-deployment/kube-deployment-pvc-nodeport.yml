@@ -1,4 +1,7 @@
-# redis
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vote
 --- 
 apiVersion: v1
 kind: Service
@@ -6,10 +9,11 @@ metadata:
   labels: 
     app: redis
   name: redis
+  namespace: vote
 spec: 
-  clusterIP: None
+  type: ClusterIP
   ports:
-  - name: redis-service
+  - name: redis
     port: 6379
     targetPort: 6379
   selector: 
@@ -19,6 +23,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
+  namespace: vote
   labels:
     app: redis
 spec:
@@ -32,13 +37,11 @@ spec:
         app: redis
     spec:
       containers:
-      - name: redis
-        image: redis:alpine
+      - image: redis:5.0-alpine3.10
+        name: redis
         ports:
         - containerPort: 6379
           name: redis
-
-# db
 --- 
 apiVersion: v1
 kind: Service
@@ -46,8 +49,9 @@ metadata:
   labels: 
     app: db
   name: db
+  namespace: vote
 spec: 
-  clusterIP: None
+  type: ClusterIP
   ports: 
   - name: db
     port: 5432
@@ -59,6 +63,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: db
+  namespace: vote
   labels:
     app: db
 spec:
@@ -102,8 +107,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
-
-# result
 ---
 apiVersion: v1
 kind: Service
@@ -111,11 +114,13 @@ metadata:
   name: result
   labels:
     app: result
+  namespace: vote
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - port: 5001
     targetPort: 80
+    nodePort: 31001
     name: result-service
   selector:
     app: result
@@ -124,6 +129,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: result
+  namespace: vote
   labels:
     app: result
 spec:
@@ -138,12 +144,10 @@ spec:
     spec:
       containers:
       - name: result
-        image: dockersamples/examplevotingapp_result:before
+        image: kunchalavikram/result-app:1.0.0
         ports:
         - containerPort: 80
           name: result
-
-# vote
 ---
 apiVersion: v1
 kind: Service
@@ -151,12 +155,14 @@ metadata:
   name: vote
   labels:
     apps: vote
+  namespace: vote
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
-    - port: 5000
-      targetPort: 80
-      name: vote-service
+  - name: vote
+    port: 5000
+    targetPort: 80
+    nodePort: 31000
   selector:
     app: vote
 ---
@@ -166,8 +172,9 @@ metadata:
   name: vote
   labels:
     app: vote
+  namespace: vote
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: vote
@@ -178,23 +185,10 @@ spec:
     spec:
       containers:
       - name: vote
-        image: dockersamples/examplevotingapp_vote:before
+        image: kunchalavikram/vote-app:1.0.0
         ports:
         - containerPort: 80
           name: vote
-
-# worker
---- 
-apiVersion: v1
-kind: Service
-metadata: 
-  labels: 
-    apps: worker
-  name: worker
-spec: 
-  clusterIP: None
-  selector: 
-    app: worker
 --- 
 apiVersion: apps/v1
 kind: Deployment
@@ -202,7 +196,8 @@ metadata:
   labels: 
     app: worker
   name: worker
-spec: 
+  namespace: vote
+spec:
   replicas: 1
   selector:
     matchLabels:
@@ -213,5 +208,5 @@ spec:
         app: worker
     spec: 
       containers: 
-      - image: dockersamples/examplevotingapp_worker
+      - image: kunchalavikram/worker-app:1.0.0
         name: worker
