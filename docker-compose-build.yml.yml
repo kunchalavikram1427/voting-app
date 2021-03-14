@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  vote:
+    build:
+      context: ./vote
+      dockerfile: Dockerfile
+    image: ${DOCKER_REPO}/vote-app:${BUILD_TAG:-latest}
+
+  result:
+    build:
+      context: ./result
+      dockerfile: Dockerfile
+    image: ${DOCKER_REPO}/result-app:${BUILD_TAG:-latest}
+
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    image: ${DOCKER_REPO}/worker-app:${BUILD_TAG:-latest}
+
+  
