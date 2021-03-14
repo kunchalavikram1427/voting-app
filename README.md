@@ -29,6 +29,9 @@ $ docker-compose -f docker-compose-build.yml build --no-cache
 ```
 $ docker-compose up -d
 ```
+### Access the application
+The vote app will be running at [http://localhost:5000](http://localhost:5000), and the results will be at [http://localhost:5001](http://localhost:5001)
+
 ### Deploying in docker swarm
 ```
 $ docker stack deploy -c docker-stack.yml vote
