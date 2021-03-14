@@ -30,7 +30,7 @@ $ docker-compose -f docker-compose-build.yml build --no-cache
 $ docker-compose up -d
 ```
 ### Access the application
-The vote app will be running at [http://localhost:5000](http://localhost:5000), and the results will be at [http://localhost:5001](http://localhost:5001)
+The vote app will be running at [http://localhost:5000](http://localhost:5000), and the results will be at [http://localhost:5001](http://localhost:5001). Replace localhost with the IP of the host where applications are running in order to access it from other machines.
 
 ### Deploying in docker swarm
 ```
