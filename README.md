@@ -18,8 +18,14 @@
 
 
 ## Docker deployments
-
-
+### Building the images
+```
+$ docker-compose -f docker-compose-build.yml build --no-cache
+```
+### Deploying the app in docker-compose -
+```
+$ docker-compose up -d
+```
 
 ## Kubernetes deployment
 
