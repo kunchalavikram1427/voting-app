@@ -22,10 +22,15 @@
 ```
 $ docker-compose -f docker-compose-build.yml build --no-cache
 ```
-### Deploying the app in docker-compose -
+### Deploying the app to docker
 ```
 $ docker-compose up -d
 ```
+### Deploying in docker swarm
+```
+$ docker stack deploy -c docker-stack.yml vote
+```
+
 
 ## Kubernetes deployment
 
